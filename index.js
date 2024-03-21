@@ -3,6 +3,7 @@ const express = require ('express');
 const app = express();
 const studentRoute = require ('./routes/studentRoute')
 const courseRoute = require ('./routes/courseRoute')
+const authRoute = require ('./routes/authRoute')
 
 
 require('dotenv').config()
@@ -13,6 +14,7 @@ app.use(express.json()); //express.json is a body passer pass values from the bo
 app.use(express.urlencoded({ extended: true })); //this will parse url encoded data 
 app.use('/api/student', studentRoute)  //using the middleware for routes
 app.use('/api/course', courseRoute)  //using the middleware for routes
+app.use('/api/auth', authRoute)  //using the middleware for routes
 
 app.listen(process.env.port || 4000, function() {
   console.log('Now listening for requests on: https://localhost:4000');
