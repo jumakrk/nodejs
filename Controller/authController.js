@@ -1,11 +1,12 @@
 const db = require("../Model/dbConnect");
 const { signAccessToken } = require("../helpers/jwtHelper");
+// const joi = require('../helpers/validateSchema')
 const  user = db.users
 
 module.exports = {
 addUser: async (req, res, next) => {
     try {
-        const {email, password} = req.body;
+        const {email, password} = await Joi.authShema.validateAsync (req.body);
         const exists = await user.findOne({where:{email}});
          if(exists){
             throw createError.Conflict(`${email} has already been registered`)
@@ -14,7 +15,7 @@ addUser: async (req, res, next) => {
          const savedUser = await newUser.save();
 
          const accessToken = await signAccessToken(savedUser.user_id);
-        res.status(200).send(addUser)
+        res.status(200).send(accessToken)
     } catch (error) {
         next(error)
     }
