@@ -1,8 +1,8 @@
 const db = require("../model/dbConnect");
-const { user } = db; // Assuming user is your model
 const createHttpError = require("http-errors");
 const { authSchema } = require('../helpers/validateSchema');
 const { signAccessToken, signRefreshToken } = require('../helpers/jwtHelper');
+const user = db.user; // Assuming user is your model
 
 module.exports = {
     addUser: async (req, res, next) => {

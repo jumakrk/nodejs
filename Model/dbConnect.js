@@ -24,7 +24,7 @@ db.sequelize = sequelize;
 
 db.students =  require("./studentModel")(sequelize, DataTypes)
 db.courses =  require("./courseModel")(sequelize, DataTypes)
-db.courses =  require("./authModel")(sequelize, DataTypes)
+db.user =  require("./authModel")(sequelize, DataTypes)
 
 db.sequelize.sync({force: false})
   .then(()=>{
