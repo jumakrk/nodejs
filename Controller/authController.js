@@ -13,7 +13,7 @@ module.exports = {
                 throw createHttpError.Conflict(`${email} has already been registered`);
             }
             const newUser = await user.create({ email, password });
-            const accessToken = await signAccessToken(newUser.id);
+            const accessToken = await signAccessToken(newUser.user_id);
             res.status(201).json({ accessToken });
         } catch (error) {
             console.error(error);

@@ -1,8 +1,9 @@
 const express = require ( 'express' )
 
-const courseController = require ('../Controller/courseController')
+const courseController = require ('../Controller/courseController');
+const { verifyAccessToken } = require('../helpers/jwtHelper');
 const router = express.Router()
 
-router.post('/addCourse', courseController.addCourse) //Add a new Student to the database
+router.post('/addCourse', verifyAccessToken, courseController.addCourse) //Add a new course to the database
 
 module.exports = router;
