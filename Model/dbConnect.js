@@ -1,34 +1,38 @@
-const dbConfig = require("../config/dbConfig");
+const dbConfig = require("../config/dbConfig.js");
 const {Sequelize, DataTypes} = require("sequelize");
 
-// define the model
+// const Sequelize = new Sequelize();
 
-const sequelize = new Sequelize( 
-  dbConfig.DB,
-  dbConfig.USER,
-  dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    operatorsAliases: false, //if error in the code will overwrite
-});
+const sequelize = new Sequelize(
+            dbConfig.DB,
+            dbConfig.USER,
+            dbConfig.PASSWORD,{
+                host: dbConfig.HOST,
+                dialect: dbConfig.dialect,
+                    operatorAliases: false,  //if errors in your code will overwrite
+            }); 
 
-sequelize
-.authenticate()
-.then(() => console.log('Connection has been established successfully.'))
-.catch((err) => console.error('Unable to connect to the database:', err));
+            sequelize
+            .authenticate()
+              //promise
+            .then(()=> {
+                console.log("Database Connection Successful...");
+            })
+            .catch((err)=>{
+                    console.log("Error" + err);
+            });
 
-const db = {}; //empty object
+            const db = {};
 
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+            db.Sequelize = Sequelize;
+            db.sequelize = sequelize;
 
-db.students =  require("./studentModel")(sequelize, DataTypes);
-db.courses =  require("./courseModel")(sequelize, DataTypes);
-db.user =  require("./authModel")(sequelize, DataTypes)
-
-db.sequelize.sync({force: false})
-  .then(()=>{
-      console.log("re-sync done")
-    })
+db.sequelize.sync ({force:false})
+.then(()=>{
+console.log('re-sync done');
+})
+db.student = require( "./studentModel.js")(sequelize, DataTypes);
+db.courses = require( "./courseModel.js")(sequelize, DataTypes);
+db.users = require( "./authModel.js")(sequelize, DataTypes);
 
 module.exports = db;

@@ -5,6 +5,6 @@
   const router = express.Router()
 
   router.post('/addStudent', studentController.addStudent) //Add a new Student to the database
-  router.get('/getAllStudents', studentController.getAllStudents) //get Student from the database
+  router.get('/getAllstudents', studentController.getAllstudents) //get Student from the database
 
   module.exports = router; 
